@@ -13,7 +13,7 @@ public class Font : Asset
     public Font(string file) : base(file)
     {
         File = file;
-        TextEngine = TTF.CreateRendererTextEngine(Draw.Renderer);
+        TextEngine = TTF.CreateRendererTextEngine(Internals.Renderer);
     }
 
     internal IntPtr GetFont(float size)
