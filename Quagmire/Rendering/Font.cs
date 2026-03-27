@@ -1,15 +1,16 @@
+using Quagmire.Assets;
 using Quagmire.Geometry;
 using SDL3;
 
 namespace Quagmire.Rendering;
 
-public class Font
+public class Font : Asset
 {
     public string File;
     public Dictionary<float, IntPtr> Sizes = [];
     internal static IntPtr TextEngine;
 
-    public Font(string file)
+    public Font(string file) : base(file)
     {
         File = file;
         TextEngine = TTF.CreateRendererTextEngine(Draw.Renderer);
