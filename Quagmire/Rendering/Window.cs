@@ -25,10 +25,14 @@ public static class Window
     
     public static void Open(string name, int width, int height)
     {
-        if (!SDL.Init(SDL.InitFlags.Video))
+        if (SDL.WasInit(SDL.InitFlags.Video) == 0)
         {
-            
+            if (!SDL.Init(SDL.InitFlags.Video) || !TTF.Init())
+            {
+                throw new Exception(SDL.GetError());
+            }
         }
+
         var displayScale = SDL.GetDisplayContentScale(SDL.GetPrimaryDisplay());
         Console.WriteLine($"Display Scale: {displayScale}");
         var scaledWidth = width / displayScale;
