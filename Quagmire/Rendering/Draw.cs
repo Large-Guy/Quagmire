@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Runtime.InteropServices;
 using Quagmire.Geometry;
 using Quagmire.Rendering.Commands;
 using SDL3;
@@ -259,5 +260,19 @@ public static class Draw
         patchCommand.ZIndex = Depth;
         
         _drawCommands.Add(patchCommand);
+    }
+
+    public static void Text(string text, Font font, float size, Point position, Color color, int wrapLength = 0)
+    {
+        var textCommand = Command<TextCommand>();
+        textCommand.Color = color;
+        textCommand.Font = font;
+        textCommand.Position = ToScreen(position);
+        textCommand.Size = size;
+        textCommand.Text = text;
+        textCommand.ZIndex = Depth;
+        textCommand.WrapLength = wrapLength;
+
+        _drawCommands.Add(textCommand);
     }
 }
