@@ -35,6 +35,7 @@ public class Font : Asset
         }
 
         TTF.GetTextSize(obj, out var x, out var y);
+        TTF.DestroyText(obj);
         return new Point(x, y);
     }
 }
