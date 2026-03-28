@@ -8,7 +8,6 @@ public class PanelElement : UIElement
     
     public PanelElement()
     {
-        ConsumeInput = true;
     }
 
     public override void OnDraw()

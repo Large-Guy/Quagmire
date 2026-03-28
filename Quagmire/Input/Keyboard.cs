@@ -51,4 +51,44 @@ public static class Keyboard
             p = p.Normalize();
         return p;
     }
+
+    public static void Text(ref string output, ref int cursor)
+    {
+        var pressed = Internals.Pressed;
+
+        switch (pressed)
+        {
+            case SDL.Keycode.Backspace:
+            {
+                if (cursor > 0)
+                {
+                    output = output.Remove(cursor - 1, 1);
+                    cursor--;
+                }
+                break;
+            }
+            case SDL.Keycode.Left:
+            {
+                if (cursor > 0)
+                    cursor--;
+
+                break;
+            }
+            case SDL.Keycode.Right:
+            {
+                if(cursor < output.Length)
+                    cursor++;
+                break;
+            }
+            default:
+            {
+                if (Internals.Text.Length > 0)
+                {
+                    output = output.Insert(cursor, Internals.Text);
+                    cursor += Internals.Text.Length;
+                }
+                break;
+            }
+        }
+    }
 }

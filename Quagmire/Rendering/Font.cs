@@ -24,4 +24,17 @@ public class Font : Asset
         Sizes.Add(size, font);
         return font;
     }
+
+    public Point Measure(string text, float size, int wrapLength = 0)
+    {
+        var font = GetFont(size);
+        var obj = TTF.CreateText(TextEngine, font, text, (UIntPtr)text.Length);
+        if (wrapLength != 0)
+        {
+            TTF.SetTextWrapWidth(obj, wrapLength);
+        }
+
+        TTF.GetTextSize(obj, out var x, out var y);
+        return new Point(x, y);
+    }
 }

@@ -39,6 +39,7 @@ public static class Window
         var scaledHeight = height / displayScale;
         SDL.CreateWindowAndRenderer(name, (int)scaledWidth, (int)scaledHeight, SDL.WindowFlags.HighPixelDensity, out Internals.Window, out Internals.Renderer);
         SDL.SetDefaultTextureScaleMode(Internals.Renderer, SDL.ScaleMode.PixelArt);
+        SDL.StartTextInput(Internals.Window);
         Draw.Resolution(width, height);
     }
     

@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Quagmire.Geometry;
 using SDL3;
 
@@ -24,6 +25,9 @@ internal static class Internals
 
     public static Dictionary<SDL.Keycode, ButtonState> KeysPressed = new();
     public static Dictionary<SDL.MouseButtonFlags, ButtonState> MouseState = new();
+
+    public static SDL.Keycode Pressed = SDL.Keycode.Unknown;
+    public static string Text = "";
 
     public static void KeyPress(SDL.Keycode key)
     {
@@ -94,6 +98,10 @@ internal static class Internals
         
         MouseDelta = new Point(0, 0);
         
+        Pressed = SDL.Keycode.Unknown;
+        Text = "";
+        
+        
         while (SDL.PollEvent(out var e))
         {
             switch ((SDL.EventType)e.Type)
@@ -106,6 +114,16 @@ internal static class Internals
                 case SDL.EventType.KeyDown:
                 {
                     KeyPress(e.Key.Key);
+                    Pressed = e.Key.Key;
+                    break;
+                }
+                case SDL.EventType.TextInput:
+                {
+                    string? text = Marshal.PtrToStringUTF8(e.Text.Text);
+                    if (text != null && text.Length > 0)
+                    {
+                        Text = text;
+                    }
                     break;
                 }
                 case SDL.EventType.KeyUp:
